@@ -22,9 +22,10 @@ public class Book {
     private Long id;
     private String title;
     private String author;
-    private String isbn;
     private BigDecimal price;
     private String description;
+    @Column(unique = true)
+    private String isbn;
     @Column(name = "cover_image")
     private String coverImage;
     @Column(name = "is_deleted", nullable = false)
