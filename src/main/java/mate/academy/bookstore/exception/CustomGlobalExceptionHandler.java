@@ -43,6 +43,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         body.put("error", "Entity not found: " + ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+    //TODO add handler for Registration exception
 
     private String getErrorMessage(ObjectError e) {
         if (e instanceof FieldError) {
