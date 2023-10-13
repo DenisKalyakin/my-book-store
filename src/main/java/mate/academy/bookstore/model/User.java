@@ -42,7 +42,6 @@ public class User implements UserDetails {
     private String shippingAddress;
     @Column(name = "is_deleted")
     private boolean isDeleted;
-    //TODO check fetch TYPE roles
     @ManyToMany(fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto registration(UserRegistrationRequestDto request)
             throws RegistrationException {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RegistrationException("Unable to complete registration");
+            throw new RegistrationException("Such email already exists");
         }
         User user = new User();
         user.setEmail(request.getEmail());
@@ -33,4 +33,3 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserResponseDto(savedUser);
     }
 }
-//TODO add check password

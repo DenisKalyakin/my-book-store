@@ -43,7 +43,15 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         body.put("error", "Entity not found: " + ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
-    //TODO add handler for Registration exception
+
+    @ExceptionHandler(RegistrationException.class)
+    protected ResponseEntity<Object> handleIncorrectRegistration(RegistrationException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST);
+        body.put("error", "Unable to complete registration: " + ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 
     private String getErrorMessage(ObjectError e) {
         if (e instanceof FieldError) {

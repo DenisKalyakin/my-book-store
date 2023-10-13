@@ -1,5 +1,7 @@
 package mate.academy.bookstore.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.user.UserLoginRequestDto;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Authentication management",
+        description = "Endpoints for registration and authentication users")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class AuthController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
+    @Operation(summary = "Create a new user", description = "Create a new user")
     @PostMapping("/register")
     public UserResponseDto register(
             @RequestBody @Valid UserRegistrationRequestDto registrationRequestDto
@@ -28,6 +33,8 @@ public class AuthController {
         return userService.registration(registrationRequestDto);
     }
 
+    @Operation(summary = "Authenticate user",
+            description = "Authenticate user by JWT token validation")
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody UserLoginRequestDto loginRequestDto) {
         return authenticationService.authenticate(loginRequestDto);
