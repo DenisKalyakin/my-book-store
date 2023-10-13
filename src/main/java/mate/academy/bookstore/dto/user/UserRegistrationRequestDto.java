@@ -15,11 +15,11 @@ public class UserRegistrationRequestDto {
     private String email;
 
     @NotBlank
-    @Size(min = 4, max = 100)
+    @Size(min = 4, max = 20)
     private String password;
 
     @NotBlank
-    @Size(min = 4, max = 100)
+    @Size(min = 4, max = 20)
     private String repeatPassword;
 
     @NotBlank
