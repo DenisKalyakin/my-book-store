@@ -5,12 +5,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstore.dto.BookDto;
-import mate.academy.bookstore.dto.BookSearchParameters;
-import mate.academy.bookstore.dto.CreateBookRequestDto;
-import mate.academy.bookstore.service.BookService;
+import mate.academy.bookstore.dto.book.BookDto;
+import mate.academy.bookstore.dto.book.BookSearchParameters;
+import mate.academy.bookstore.dto.book.CreateBookRequestDto;
+import mate.academy.bookstore.service.book.BookService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Book management", description = "Endpoints for managing books")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/books")
+@RequestMapping(value = "/books")
 public class BookController {
     private final BookService bookService;
 
     @Operation(summary = "Create a new book", description = "Create a new book")
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
@@ -48,6 +50,7 @@ public class BookController {
     }
 
     @Operation(summary = "Delete a book by id", description = "Soft delete a book by id")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
@@ -55,6 +58,7 @@ public class BookController {
     }
 
     @Operation(summary = "Update a book by id", description = "Update a book by id")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public BookDto update(@RequestBody BookDto bookDto, @PathVariable Long id) {
         return bookService.update(bookDto, id);
@@ -69,6 +73,7 @@ public class BookController {
     }
 
     @Operation(summary = "Create all books", description = "Saves several books to the database")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save-all")
     @ResponseStatus(HttpStatus.CREATED)
     public String saveAll(@RequestBody @Valid CreateBookRequestDto[] requestDtos) {
