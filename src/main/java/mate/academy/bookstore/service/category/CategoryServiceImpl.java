@@ -3,6 +3,7 @@ package mate.academy.bookstore.service.category;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.category.CategoryDto;
+import mate.academy.bookstore.dto.category.CreateCategoryRequestDto;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.CategoryMapper;
 import mate.academy.bookstore.model.Category;
@@ -17,8 +18,8 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
-        Category category = categoryMapper.toEntity(categoryDto);
+    public CategoryDto save(CreateCategoryRequestDto requestDto) {
+        Category category = categoryMapper.toEntity(requestDto);
         Category savedCategory = categoryRepository.save(category);
         return categoryMapper.toDto(savedCategory);
     }
@@ -45,9 +46,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto update(CategoryDto categoryDto, Long id) {
-        Category category = categoryMapper.toEntity(categoryDto);
-        category.setId(id);
-        Category updatedCategory = categoryRepository.save(category);
-        return categoryMapper.toDto(updatedCategory);
+        if (categoryRepository.existsById(id)) {
+            Category category = categoryMapper.toEntity(categoryDto);
+            category.setId(id);
+            Category updatedCategory = categoryRepository.save(category);
+            return categoryMapper.toDto(updatedCategory);
+        } else {
+            throw new EntityNotFoundException(
+                    "Can't update, category with id " + id + " doesn't exist."
+            );
+        }
     }
 }

@@ -42,7 +42,7 @@ public class Book {
     private String description;
     @Column(name = "cover_image")
     private String coverImage;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinTable(
