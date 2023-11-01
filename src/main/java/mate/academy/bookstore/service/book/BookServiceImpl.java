@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.book.BookDto;
+import mate.academy.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.dto.book.BookSearchParameters;
 import mate.academy.bookstore.dto.book.CreateBookRequestDto;
 import mate.academy.bookstore.exception.EntityNotFoundException;
@@ -31,7 +32,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto findById(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(
+        Book book = bookRepository.findBookWithCategoriesById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find book by id " + id)
         );
         return bookMapper.toDto(book);
@@ -39,7 +40,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getAll(Pageable pageable) {
-        return bookRepository.findAll(pageable).stream()
+        return bookRepository.findAllBooksWithCategories(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -51,16 +52,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto update(BookDto bookDto, Long id) {
-        Book book = bookMapper.toModel(bookDto);
-        book.setId(id);
-        Book updatedBook = bookRepository.save(book);
-        return bookMapper.toDto(updatedBook);
+        if (bookRepository.existsById(id)) {
+            Book book = bookMapper.toModel(bookDto);
+            book.setId(id);
+            Book updatedBook = bookRepository.save(book);
+            return bookMapper.toDto(updatedBook);
+        } else {
+            throw new EntityNotFoundException(
+                    "Can't update, book with id " + id + " doesn't exist."
+            );
+        }
     }
 
     @Override
     public List<BookDto> search(BookSearchParameters parameters, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(parameters);
-        return bookRepository.findAll(bookSpecification, pageable)
+        return bookRepository.findAllBooksWithCategories(bookSpecification, pageable)
                 .stream()
                 .map(bookMapper::toDto)
                 .toList();
@@ -71,5 +78,12 @@ public class BookServiceImpl implements BookService {
         Arrays.stream(requestDtos)
                 .forEach(this::save);
         return "The list of books has been saved successfully";
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long categoryId, Pageable pageable) {
+        return bookRepository.findAllByCategoryId(categoryId).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .toList();
     }
 }

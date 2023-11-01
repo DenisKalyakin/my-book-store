@@ -2,6 +2,7 @@ package mate.academy.bookstore.service.book;
 
 import java.util.List;
 import mate.academy.bookstore.dto.book.BookDto;
+import mate.academy.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.dto.book.BookSearchParameters;
 import mate.academy.bookstore.dto.book.CreateBookRequestDto;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,6 @@ public interface BookService {
     List<BookDto> search(BookSearchParameters parameters, Pageable pageable);
 
     String saveAll(CreateBookRequestDto[] requestDtos);
+
+    List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long id, Pageable pageable);
 }
