@@ -1,9 +1,9 @@
 package mate.academy.bookstore.service.shoppingcart;
 
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstore.dto.cartitem.CartItemRequestDto;
-import mate.academy.bookstore.dto.cartitem.QuantityRequestDto;
-import mate.academy.bookstore.dto.shoppingcart.ShoppingCartResponseDto;
+import mate.academy.bookstore.dto.cartitem.external.CartItemRequestDto;
+import mate.academy.bookstore.dto.cartitem.external.QuantityRequestDto;
+import mate.academy.bookstore.dto.shoppingcart.internal.ShoppingCartResponseDto;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.ShoppingCartMapper;
 import mate.academy.bookstore.model.CartItem;

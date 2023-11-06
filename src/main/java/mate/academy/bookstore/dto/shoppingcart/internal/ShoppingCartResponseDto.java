@@ -1,8 +1,8 @@
-package mate.academy.bookstore.dto.shoppingcart;
+package mate.academy.bookstore.dto.shoppingcart.internal;
 
 import java.util.Set;
 import lombok.Data;
-import mate.academy.bookstore.dto.cartitem.CartItemResponseDto;
+import mate.academy.bookstore.dto.cartitem.internal.CartItemResponseDto;
 
 @Data
 public class ShoppingCartResponseDto {

@@ -2,8 +2,8 @@ package mate.academy.bookstore.service.category;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstore.dto.category.CategoryDto;
-import mate.academy.bookstore.dto.category.CreateCategoryRequestDto;
+import mate.academy.bookstore.dto.category.external.CreateCategoryRequestDto;
+import mate.academy.bookstore.dto.category.internal.CategoryDto;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.CategoryMapper;
 import mate.academy.bookstore.model.Category;

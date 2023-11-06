@@ -2,9 +2,9 @@ package mate.academy.bookstore.mapper;
 
 import java.util.stream.Collectors;
 import mate.academy.bookstore.config.MapperConfig;
-import mate.academy.bookstore.dto.book.BookDto;
-import mate.academy.bookstore.dto.book.BookDtoWithoutCategoryIds;
-import mate.academy.bookstore.dto.book.CreateBookRequestDto;
+import mate.academy.bookstore.dto.book.external.CreateBookRequestDto;
+import mate.academy.bookstore.dto.book.internal.BookDto;
+import mate.academy.bookstore.dto.book.internal.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.model.Book;
 import mate.academy.bookstore.model.Category;
 import org.mapstruct.AfterMapping;
