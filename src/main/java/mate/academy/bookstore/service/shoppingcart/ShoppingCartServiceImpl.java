@@ -50,16 +50,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void updateQuantityOfBookById(Long cartItemId, QuantityRequestDto quantityRequestDto) {
-        if (cartItemRepository.existsById(cartItemId)) {
-            CartItem cartItem = cartItemRepository.getById(cartItemId);
-            cartItem.setQuantity(quantityRequestDto.getQuantity());
-            cartItemRepository.save(cartItem);
-        } else {
-            throw new EntityNotFoundException(
-                    "Can't update quantity, item with id " + cartItemId
-                            + " doesn't exist."
-            );
-        }
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(()
+                -> new EntityNotFoundException(
+                "Can't update quantity, item with id " + cartItemId
+                        + " doesn't exist."
+        ));
+        cartItem.setQuantity(quantityRequestDto.getQuantity());
+        cartItemRepository.save(cartItem);
     }
 
     @Override
