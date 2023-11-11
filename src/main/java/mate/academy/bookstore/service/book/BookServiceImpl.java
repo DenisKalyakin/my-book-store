@@ -3,10 +3,10 @@ package mate.academy.bookstore.service.book;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstore.dto.book.BookDto;
-import mate.academy.bookstore.dto.book.BookDtoWithoutCategoryIds;
-import mate.academy.bookstore.dto.book.BookSearchParameters;
-import mate.academy.bookstore.dto.book.CreateBookRequestDto;
+import mate.academy.bookstore.dto.book.external.BookSearchParameters;
+import mate.academy.bookstore.dto.book.external.CreateBookRequestDto;
+import mate.academy.bookstore.dto.book.internal.BookDto;
+import mate.academy.bookstore.dto.book.internal.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.BookMapper;
 import mate.academy.bookstore.model.Book;
@@ -40,7 +40,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getAll(Pageable pageable) {
-        return bookRepository.findAllBooksWithCategories(pageable).stream()
+        return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -67,7 +67,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> search(BookSearchParameters parameters, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(parameters);
-        return bookRepository.findAllBooksWithCategories(bookSpecification, pageable)
+        return bookRepository.findAll(bookSpecification, pageable)
                 .stream()
                 .map(bookMapper::toDto)
                 .toList();

@@ -1,8 +1,8 @@
 package mate.academy.bookstore.mapper;
 
 import mate.academy.bookstore.config.MapperConfig;
-import mate.academy.bookstore.dto.category.CategoryDto;
-import mate.academy.bookstore.dto.category.CreateCategoryRequestDto;
+import mate.academy.bookstore.dto.category.external.CreateCategoryRequestDto;
+import mate.academy.bookstore.dto.category.internal.CategoryDto;
 import mate.academy.bookstore.model.Category;
 import org.mapstruct.Mapper;
 

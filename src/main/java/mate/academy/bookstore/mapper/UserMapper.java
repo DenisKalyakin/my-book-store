@@ -1,7 +1,7 @@
 package mate.academy.bookstore.mapper;
 
 import mate.academy.bookstore.config.MapperConfig;
-import mate.academy.bookstore.dto.user.UserResponseDto;
+import mate.academy.bookstore.dto.user.external.UserResponseDto;
 import mate.academy.bookstore.model.User;
 import org.mapstruct.Mapper;
 

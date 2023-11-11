@@ -1,4 +1,4 @@
-package mate.academy.bookstore.dto.user;
+package mate.academy.bookstore.dto.user.internal;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

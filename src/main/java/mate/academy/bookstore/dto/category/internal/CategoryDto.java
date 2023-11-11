@@ -1,4 +1,4 @@
-package mate.academy.bookstore.dto.category;
+package mate.academy.bookstore.dto.category.internal;
 
 import lombok.Data;
 
