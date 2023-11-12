@@ -2,6 +2,7 @@ package mate.academy.bookstore.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.order.external.ShippingAddressRequestDto;
@@ -32,7 +33,7 @@ public class OrderController {
             description = "Creation a new order based on the user's shopping cart and address")
     public void createOrder(
             Authentication authentication,
-            @RequestBody ShippingAddressRequestDto requestDto
+            @RequestBody @Valid ShippingAddressRequestDto requestDto
     ) {
         orderService.createOrder(authentication, requestDto);
     }
@@ -50,7 +51,7 @@ public class OrderController {
             description = "Updating order status by order id, only for admins")
     public void updateOrderStatusById(
             @PathVariable Long id,
-            @RequestBody StatusRequestDto requestDto
+            @RequestBody @Valid StatusRequestDto requestDto
     ) {
         orderService.updateStatus(id, requestDto);
     }
