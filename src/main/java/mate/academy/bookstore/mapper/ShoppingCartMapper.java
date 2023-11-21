@@ -1,28 +1,14 @@
 package mate.academy.bookstore.mapper;
 
-import java.util.stream.Collectors;
 import mate.academy.bookstore.config.MapperConfig;
 import mate.academy.bookstore.dto.shoppingcart.internal.ShoppingCartResponseDto;
-import mate.academy.bookstore.mapper.impl.CartItemMapperImpl;
 import mate.academy.bookstore.model.ShoppingCart;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.Mapping;
 
-@Mapper(config = MapperConfig.class)
+@Mapper(config = MapperConfig.class, uses = CartItemMapper.class)
 public interface ShoppingCartMapper {
+    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "cartItems", target = "cartItems")
     ShoppingCartResponseDto toDto(ShoppingCart shoppingCart);
-
-    @AfterMapping
-    default void setUsersIdAndCartItems(
-            @MappingTarget
-            ShoppingCartResponseDto shoppingCartResponseDto,
-            ShoppingCart shoppingCart
-    ) {
-        CartItemMapper cartItemMapper = new CartItemMapperImpl();
-        shoppingCartResponseDto.setUserId(shoppingCart.getUser().getId());
-        shoppingCartResponseDto.setCartItems(shoppingCart.getCartItems().stream()
-                .map(cartItemMapper::toDto)
-                .collect(Collectors.toSet()));
-    }
 }
