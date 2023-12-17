@@ -91,7 +91,6 @@ class BookControllerTest {
                 .setAuthor("Remark")
                 .setIsbn("ISBN-13: 978-0-316-76948-1")
                 .setPrice(BigDecimal.valueOf(100.95));
-
         BookDto expected = new BookDto()
                 .setTitle(requestDto.getTitle())
                 .setAuthor(requestDto.getAuthor())
