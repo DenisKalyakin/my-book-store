@@ -38,27 +38,31 @@ Java JDK version: 17
 - Docker
 
 ### Features
-
-- registration user
-- authentication user
+  #### user:
+- registration/authentication user
+#### book:
 - create/get/update/(soft)delete a book
 - create a list of books
 - get a list of all books
 - search books by title, author or category
+#### category:
 - create/get/update/(soft)delete a category
 - get a list of all categories
+#### shopping cart:
 - shopping cart is created and assigned to the user during registration
-- add a book to the shopping cart of the logged-in user
-- remove a book from the shopping cart of the logged-in user
-- update quantity of book in the shopping cart
-- get a shopping cart of the logged-in user
+- Operations on the cart of an authorized user:
+  - get
+  - add/remove a book
+  - update quantity of book
+#### order:
 - creating an order based on the shopping cart
-- update order status
-- get a list of order items from order
-- get a one item from order
 - get all orders of the logged-in user
-  ![book order image](bo management.png)
-  ![category shopping cart auth image](csca management.png)
+- Operations on orders:
+  - update status
+  - get a list of order-items
+  - get a one item
+    ![book order image](bo management.png)
+    ![category shopping cart auth image](csca management.png)
 
 ### Startup instructions
 #### easy way:
